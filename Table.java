@@ -22,7 +22,7 @@ public class Table{
 
         for(Column column : columns){
             if(column.getName().equals("id")){
-                row.put("id", nextId++);
+                row.putIfAbsent("id", nextId++);
                 break;
             }
         }

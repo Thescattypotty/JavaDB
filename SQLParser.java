@@ -25,6 +25,7 @@ public class SQLParser{
             try {
                 table.insert(row);
                 System.out.println("Row inserted into table '" + tableName + "'.");
+                System.out.println("Rows are : " + row);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }

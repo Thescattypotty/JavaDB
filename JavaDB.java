@@ -12,8 +12,7 @@ public class JavaDB{
         
         System.out.println("Welcome to the Senshi Java Database In-Memory !");
         
-        while(true)
-        {
+        while(true){
             System.out.print("JavaDB> ");
             String command = scanner.nextLine();
 
@@ -47,8 +46,14 @@ public class JavaDB{
                 parser.createTable(tableName, columns);
             } else if (command.startsWith("INSERT INTO")) {
                 String[] parts = command.split(" ");
+                
+                if (parts.length < 5) {
+                    System.out.println("Invalid INSERT command format.");
+                    return;
+                }
                 String tableName = parts[2];
-                String[] values = parts[4].replace("(", "").replace(")", "").split(",");
+                String valuesPart = command.substring(command.indexOf("(") + 1, command.indexOf(")"));
+                String[] values = valuesPart.split(",");
                 List<Column> columns = parser.getTables().get(tableName).getColumns();
                 Map<String, Object> row = new HashMap<>();
 
@@ -60,13 +65,14 @@ public class JavaDB{
                         if ("INT".equals(type)) {
                             row.put(columns.get(i).getName(), Integer.parseInt(values[i].trim()));
                         } else if ("DATE".equals(type)) {
-                            row.put(columns.get(i).getName(), new Date()); // In a real scenario, parse the date string
+                            row.put(columns.get(i).getName(), new Date());
                         } else {
                             row.put(columns.get(i).getName(), values[i].trim());
                         }
                     }
                 }
                 parser.insert(tableName, row);
+
             } else if (command.startsWith("SELECT * FROM")) {
                 String[] parts = command.split(" ");
                 String tableName = parts[3];
@@ -99,8 +105,8 @@ public class JavaDB{
             } else {
                 System.out.println("Unknown command.");
             }
+            
         }
         scanner.close();
-
     }
 }
