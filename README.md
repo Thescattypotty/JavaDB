@@ -36,3 +36,7 @@ JavaDB> SELECT * FROM users;
 Data from table 'users':
 {id=1, firstName=Ahmed, lastName=BATAL}
 ```
+
+## NOTE : 
+
+!You need to respect Spaces like in the exemples
